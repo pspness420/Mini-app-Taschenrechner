@@ -1,94 +1,110 @@
 /* Reset & Grundsetup */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  body {
-    background: #e5e5e5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* Taschenrechner-Container */
-  .calculator {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    overflow: hidden;
-    width: 320px;
-    display: grid;
-    /* 6 Reihen:
-       1. Display 
-       2. 7 8 9 / 
-       3. 4 5 6 * 
-       4. 1 2 3 - 
-       5. 0 . C + 
-       6. = (spannt über 4 Spalten) */
-    grid-template-rows: 80px repeat(4, 60px) 60px;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  /* Display */
-  .display {
-    grid-column: 1 / -1; /* über alle 4 Spalten */
-    padding: 15px;
-    font-size: 2rem;
-    text-align: right;
-    background: #222222;
-    color: #ffffff;
-    border: none;
-    outline: none;
-  }
-  
-  /* Grundlayout für alle Buttons */
-  .calculator button {
-    border: none;
-    outline: none;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: 0.2s ease-in;
-  }
-  
-  /* Zahlen */
-  .number {
-    background: #f0f0f0;
-  }
-  .number:hover {
-    background: #d9d9d9;
-  }
-  
-  /* Operatoren (+, -, *, /) */
-  .operator {
-    background: #ff8c00;
-    color: #ffffff;
-    font-weight: bold;
-  }
-  .operator:hover {
-    background: #ff7a00;
-  }
-  
-  /* Sondertaste Clear (C) */
-  .clear {
-    background: #d9534f;
-    color: #ffffff;
-    font-weight: bold;
-  }
-  .clear:hover {
-    background: #c9302c;
-  }
-  
-  /* Gleich-Button (über 4 Spalten) */
-  .equals {
-    grid-column: 1 / -1;
-    background: #5cb85c;
-    color: #ffffff;
-    font-weight: bold;
-  }
-  .equals:hover {
-    background: #4cae4c;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Overall Body Styling */
+body {
+  background: #f3f3f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 16px;
+}
+
+/* Taschenrechner-Container */
+.calculator {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  width: 360px;
+  display: grid;
+  grid-template-rows: 80px repeat(4, 60px) 60px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 15px;
+}
+
+/* Display */
+.display {
+  grid-column: 1 / -1;
+  padding: 20px;
+  font-size: 2.5rem;
+  text-align: right;
+  background: #2c3e50;
+  color: #ecf0f1;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Grundlayout für alle Buttons */
+.calculator button {
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+/* Zahlen */
+.number {
+  background: linear-gradient(145deg, #f7a7b4, #f8c2d2);
+  color: #333;
+}
+.number:hover {
+  background: linear-gradient(145deg, #fbbd9d, #f7a7b4);
+  transform: scale(1.05);
+}
+
+/* Operatoren (+, -, *, /) */
+.operator {
+  background: linear-gradient(145deg, #ff6f61, #ff9e86);
+  color: #ffffff;
+  font-weight: bold;
+}
+.operator:hover {
+  background: linear-gradient(145deg, #f35c42, #f98471);
+  transform: scale(1.05);
+}
+
+/* Sondertaste Clear (C) */
+.clear {
+  background: linear-gradient(145deg, #e74c3c, #f39c12);
+  color: #ffffff;
+  font-weight: bold;
+}
+.clear:hover {
+  background: linear-gradient(145deg, #c0392b, #f1c40f);
+  transform: scale(1.05);
+}
+
+/* Gleich-Button (über 4 Spalten) */
+.equals {
+  grid-column: 1 / -1;
+  background: linear-gradient(145deg, #2ecc71, #16a085);
+  color: #ffffff;
+  font-weight: bold;
+}
+.equals:hover {
+  background: linear-gradient(145deg, #27ae60, #1abc9c);
+  transform: scale(1.05);
+}
+
+/* Additional Buttons (for the rest) */
+.other {
+  background: linear-gradient(145deg, #f39c12, #f1c40f);
+  color: #ffffff;
+}
+.other:hover {
+  background: linear-gradient(145deg, #f4b42e, #f39c12);
+  transform: scale(1.05);
+}
