@@ -2,130 +2,142 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Taschenrechner</title>
   <style>
-    /* Grundlayout */
-    body {
+    /* Grundlayout und Reset */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       font-family: Arial, sans-serif;
-      background: #f0f0f0;
+    }
+    body {
+      background: #e5e5e5;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
+    /* Taschenrechner-Container */
     .calculator {
-      background: #fff;
-      width: 300px;
-      border-radius: 8px;
+      background: #ffffff;
+      border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       overflow: hidden;
+      width: 320px;
+      display: grid;
+      /* 6 Reihen: 
+         1. Display 
+         2. 7 8 9 / 
+         3. 4 5 6 * 
+         4. 1 2 3 - 
+         5. 0 . C + 
+         6. = (spannt über 4 Spalten) */
+      grid-template-rows: 80px repeat(4, 60px) 60px;
+      grid-template-columns: repeat(4, 1fr);
     }
 
-    /* Display für die Eingabe/Ausgabe */
-    .calculator .display {
-      width: 100%;
-      height: 60px;
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 1px solid #ccc;
-      padding: 10px;
+    /* Display */
+    .display {
+      grid-column: 1 / -1; /* über alle 4 Spalten */
+      padding: 15px;
       font-size: 2rem;
       text-align: right;
-      background: #f8f8f8;
-      outline: none;
-    }
-
-    /* Container für die Tasten */
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 1px;
-    }
-
-    /* Allgemeine Button-Styles */
-    .keys button {
-      background: #e0e0e0;
+      background: #222222;
+      color: #ffffff;
       border: none;
       outline: none;
-      height: 60px;
-      font-size: 1.2rem;
+    }
+
+    /* Grundlayout für alle Buttons */
+    .calculator button {
+      border: none;
+      outline: none;
+      font-size: 1.4rem;
       cursor: pointer;
-      transition: background 0.2s;
-    }
-    .keys button:hover {
-      background: #d0d0d0;
+      transition: 0.2s ease-in;
     }
 
-    /* Operator-Buttons farblich absetzen (optional) */
-    .keys .operator {
-      background: #f9b233;
+    /* Zahlen */
+    .number {
+      background: #f0f0f0;
     }
-    .keys .operator:hover {
-      background: #f6a50b;
+    .number:hover {
+      background: #d9d9d9;
     }
 
-    /* Ergebnis-Button hervorheben (optional) */
-    .keys .equals {
-      grid-column: span 2;
-      background: #5cb85c;
-      color: #fff;
+    /* Operatoren (+, -, *, /, =) */
+    .operator {
+      background: #ff8c00;
+      color: #ffffff;
       font-weight: bold;
     }
-    .keys .equals:hover {
+    .operator:hover {
+      background: #ff7a00;
+    }
+
+    /* Sondertaste Clear (C) */
+    .clear {
+      background: #d9534f;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .clear:hover {
+      background: #c9302c;
+    }
+
+    /* Gleich-Button soll über alle 4 Spalten gehen */
+    .equals {
+      grid-column: 1 / -1; /* spannt 4 Spalten */
+      background: #5cb85c;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .equals:hover {
       background: #4cae4c;
     }
 
-    /* Besondere Buttons (z.B. Clear) */
-    .keys .clear {
-      grid-column: span 2;
-      background: #d9534f;
-      color: #fff;
-      font-weight: bold;
-    }
-    .keys .clear:hover {
-      background: #c9302c;
-    }
+    /* Layout der Reihen/Spalten (Platzierung der Buttons) */
+    /* Row 2: 7, 8, 9, / */
+    /* Row 3: 4, 5, 6, * */
+    /* Row 4: 1, 2, 3, - */
+    /* Row 5: 0, ., C, + */
+    /* Row 6: = (span 4 cols) */
   </style>
 </head>
 <body>
 
 <div class="calculator">
-  <!-- Display für die Ausgabe -->
-  <input type="text" class="display" placeholder="0" disabled>
+  <!-- Display -->
+  <input type="text" class="display" disabled value="0" />
 
-  <!-- Tasten des Taschenrechners -->
-  <div class="keys">
-    <!-- Zeile 1 -->
-    <button class="clear">C</button>
-    <button class="operator">/</button>
+  <!-- Zeile 2 (7, 8, 9, /) -->
+  <button class="number">7</button>
+  <button class="number">8</button>
+  <button class="number">9</button>
+  <button class="operator">/</button>
 
-    <!-- Zeile 2 -->
-    <button>7</button>
-    <button>8</button>
-    <button>9</button>
-    <button class="operator">*</button>
+  <!-- Zeile 3 (4, 5, 6, *) -->
+  <button class="number">4</button>
+  <button class="number">5</button>
+  <button class="number">6</button>
+  <button class="operator">*</button>
 
-    <!-- Zeile 3 -->
-    <button>4</button>
-    <button>5</button>
-    <button>6</button>
-    <button class="operator">-</button>
+  <!-- Zeile 4 (1, 2, 3, -) -->
+  <button class="number">1</button>
+  <button class="number">2</button>
+  <button class="number">3</button>
+  <button class="operator">-</button>
 
-    <!-- Zeile 4 -->
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button class="operator">+</button>
+  <!-- Zeile 5 (0, ., C, +) -->
+  <button class="number">0</button>
+  <button class="number">.</button>
+  <button class="clear">C</button>
+  <button class="operator">+</button>
 
-    <!-- Zeile 5 -->
-    <button>0</button>
-    <button>.</button>
-    <button class="equals">=</button>
-  </div>
+  <!-- Zeile 6 (=, spannt über 4 Spalten) -->
+  <button class="equals">=</button>
 </div>
 
 </body>
