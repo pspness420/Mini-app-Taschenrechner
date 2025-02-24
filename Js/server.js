@@ -4,31 +4,31 @@ const cors = require('cors');
 const path = require('path');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
-
+ 
 const app = express();
 const port = 3001;
-
+ 
 // Middleware für JSON-Parsing und CORS
 app.use(express.json());
 app.use(cors());
-
+ 
 // Verbindung zur MySQL-Datenbank
 const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
-  password: 'TunaCan2005',
+  password: 'Oyuncak16',
   database: 'taschenrechner_db'
 });
-
+ 
 // Verbindung testen
 db.connect((err) => {
   if (err) {
-    console.error('Fehler beim Verbinden zur Datenbank:', err.message);
+    console.error('❌ Fehler beim Verbinden zur Datenbank:', err.message);
     process.exit(1);
   }
-  console.log('Erfolgreich mit der Datenbank verbunden.');
+  console.log('✅ Erfolgreich mit der Datenbank verbunden.');
 });
-
+ 
 // Swagger-Konfiguration
 const options = {
   definition: {
@@ -42,10 +42,10 @@ const options = {
   },
   apis: ['./server.js'],
 };
-
+ 
 const swaggerSpec = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+ 
 /**
  * @swagger
  * /api/rechnungen:
@@ -60,13 +60,13 @@ app.get('/api/rechnungen', (req, res) => {
   const query = 'SELECT * FROM rechnungen';
   db.query(query, (err, results) => {
     if (err) {
-      console.error('Fehler beim Abrufen der Daten:', err);
+      console.error('❌ Fehler beim Abrufen der Daten:', err);
       return res.status(500).json({ error: 'Fehler beim Abrufen der Daten' });
     }
     res.json(results);
   });
 });
-
+ 
 /**
  * @swagger
  * /api/calculate:
@@ -101,34 +101,34 @@ app.get('/api/calculate', (req, res) => {
   const num1 = parseFloat(req.query.num1);
   const num2 = parseFloat(req.query.num2);
   const op = req.query.op;
-
+ 
   if (isNaN(num1) || isNaN(num2) || !op) {
-    return res.status(400).json({ error: "Ungültige Parameter" });
+    return res.status(400).json({ error: "❌ Ungültige Parameter" });
   }
-
+ 
   let result;
   switch (op) {
     case '+': result = num1 + num2; break;
     case '-': result = num1 - num2; break;
     case '*': result = num1 * num2; break;
     case '/':
-      if (num2 === 0) return res.status(400).json({ error: "Division durch 0 nicht erlaubt" });
+      if (num2 === 0) return res.status(400).json({ error: "❌ Division durch 0 nicht erlaubt" });
       result = num1 / num2;
       break;
     default:
-      return res.status(400).json({ error: "Ungültiger Operator" });
+      return res.status(400).json({ error: "❌ Ungültiger Operator" });
   }
-
+ 
   const insertQuery = `INSERT INTO rechnungen (erste_zahl, zweite_zahl, operator, ergebnis) VALUES (?, ?, ?, ?)`;
   db.query(insertQuery, [num1, num2, op, result], (err) => {
     if (err) {
-      console.error('Fehler beim Einfügen in die Datenbank:', err);
+      console.error('❌ Fehler beim Einfügen in die Datenbank:', err);
       return res.status(500).json({ error: "Fehler beim Einfügen in die Datenbank" });
     }
     res.json({ result });
   });
 });
-
+ 
 /**
  * @swagger
  * /api/rechnungen/{id}:
@@ -152,7 +152,7 @@ app.get('/api/rechnungen/:id', (req, res) => {
   const query = 'SELECT * FROM rechnungen WHERE id = ?';
   db.query(query, [id], (err, results) => {
     if (err) {
-      console.error('Fehler beim Abrufen der Daten:', err);
+      console.error('❌ Fehler beim Abrufen der Daten:', err);
       return res.status(500).json({ error: 'Fehler beim Abrufen der Daten' });
     }
     if (results.length === 0) {
@@ -161,7 +161,7 @@ app.get('/api/rechnungen/:id', (req, res) => {
     res.json(results[0]);
   });
 });
-
+ 
 /**
  * @swagger
  * /api/rechnungen:
@@ -190,16 +190,16 @@ app.post('/api/rechnungen', (req, res) => {
   const query = `INSERT INTO rechnungen (erste_zahl, zweite_zahl, operator, ergebnis) VALUES (?, ?, ?, ?)`;
   db.query(query, [erste_zahl, zweite_zahl, operator, ergebnis], (err, result) => {
     if (err) {
-      console.error('Fehler beim Einfügen in die Datenbank:', err);
+      console.error('❌ Fehler beim Einfügen in die Datenbank:', err);
       return res.status(500).json({ error: 'Fehler beim Einfügen in die Datenbank' });
     }
     res.status(201).json({ id: result.insertId, erste_zahl, zweite_zahl, operator, ergebnis });
   });
 });
-
+ 
 // --------------------
 // Server starten
 // --------------------
 app.listen(port, () => {
-  console.log(`Server läuft auf http://localhost:${port}`);
+  console.log(`🚀 Server läuft auf http://localhost:${port}`);
 });
