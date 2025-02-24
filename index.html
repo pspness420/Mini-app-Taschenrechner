@@ -3,42 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <title>Taschenrechner</title>
-  <!-- Verknüpfung mit externer CSS-Datei -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <div class="calculator">
-  <!-- Display -->
   <input type="text" class="display" disabled value="0" />
 
-  <!-- Zeile 2 (7, 8, 9, /) -->
   <button class="number">7</button>
   <button class="number">8</button>
   <button class="number">9</button>
   <button class="operator">/</button>
 
-  <!-- Zeile 3 (4, 5, 6, *) -->
   <button class="number">4</button>
   <button class="number">5</button>
   <button class="number">6</button>
   <button class="operator">*</button>
 
-  <!-- Zeile 4 (1, 2, 3, -) -->
   <button class="number">1</button>
   <button class="number">2</button>
   <button class="number">3</button>
   <button class="operator">-</button>
 
-  <!-- Zeile 5 (0, ., C, +) -->
   <button class="number">0</button>
   <button class="number">.</button>
   <button class="clear">C</button>
   <button class="operator">+</button>
 
-  <!-- Zeile 6 (=, spannt über 4 Spalten) -->
   <button class="equals">=</button>
 </div>
+
+<script src="js/calculator.js"></script>
 </body>
-<script src="Js/calculator.js"></script>
 </html>

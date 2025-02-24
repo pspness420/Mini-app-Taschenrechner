@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (storedValue === null || currentOperator === null) return;
     // Den Operator URL-kodieren, damit z.B. "+" korrekt übertragen wird
     const encodedOperator = encodeURIComponent(currentOperator);
-    fetch(`/api/calculate?num1=${storedValue}&num2=${currentValue}&op=${encodedOperator}`)
+    fetch(`http://localhost:3001/api/calculate?num1=${storedValue}&num2=${currentValue}&op=${encodeURIComponent(currentOperator)}`)
       .then(response => response.json())
       .then(data => {
         if (data.error) {
